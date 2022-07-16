@@ -3,8 +3,8 @@ requires = ["hatchling", "mysql-connector-python"]
 build-backend = "hatchling.build"
 
 [project]
-name = "mysqlpy"
-version = "1.1.7"
+name = "ezmysqlpy"
+version = "1.0.0"
 authors = [
     { name="Sahan Lakshitha", email="sahanlksk@gmail.com" },
 ]

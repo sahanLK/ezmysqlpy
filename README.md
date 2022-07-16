@@ -1,23 +1,20 @@
 
 
-mysqlpy is a python package that intended to make it easy to perform most common
+ezmysqlpy is a python package that intended to make it easy to perform most common
 MySQL database operations without writing SQL queries.
 
 ## Installation
 
-Easiest way to install ```mysqlpy``` is by using [pip](https://pip.pypa.io/en/stable/).
+Easiest way to install ```ezmysqlpy``` is by using [pip](https://pip.pypa.io/en/stable/).
 ```bash
-pip install mysqlpy
+pip install ezmysqlpy
 ```
-Clone from git:
-
-```git clone https://github.com/sahanLK/mysqlpy.git ```
 
 ## Usage
 
 ```python
 # Import the class 
-from mysqlpy import MySQLPy
+from ezmysqlpy import MySQLPy
 
 # Creating an instance
 sqlpy = MySQLPy(
