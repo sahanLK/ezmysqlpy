@@ -1,15 +1,17 @@
 
 
 mysqlpy is a python package that intended to make it easy to perform most common
-MySQL database operations for anyone without any SQL knowledge.
+MySQL database operations without writing SQL queries.
 
 ## Installation
 
-Easiest way to install mysqlpy is by using [pip](https://pip.pypa.io/en/stable/).
-
+Easiest way to install ```mysqlpy``` is by using [pip](https://pip.pypa.io/en/stable/).
 ```bash
 pip install mysqlpy
 ```
+Clone from git:
+
+```git clone https://github.com/sahanLK/mysqlpy.git ```
 
 ## Usage
 
@@ -37,7 +39,7 @@ all_dbs = sqlpy.get_all_dbs()
 #### Checking the existance of a database.
 To check if a database exists or not, use ```db_exists(database_name)``` method:
 ```python
-if sqlpy.db_exists("information_schema"):
+if sqlpy.db_exists("database_name"):
     print("Database exists")
 else:
     print("Database does not exists")
@@ -47,14 +49,14 @@ else:
 #### Creating a database.
 To create a database use ```create_db('database_name')``` method:
 ```python
-sqlpy.create_db("my_new_db")
+sqlpy.create_db("database_name")
 ```
 
 ###
 #### Deleting a database.
 To delete a database use ```delete_db('database_name')``` method:
 ```python
-sqlpy.delete_db("my_new_db")
+sqlpy.delete_db("database_name")
 ```
 
 ###
@@ -62,7 +64,7 @@ sqlpy.delete_db("my_new_db")
 To execute any kind of database table related queries, you should first select 
 a database using ```select_db(database_name)``` method:
 ```python
-sqlpy.select_db("my_new_db")
+sqlpy.select_db("database_name")
 ```
 You may change the current database using this method anywhere in your code.
 So if you are handling more than one database in your programme, make sure you
@@ -75,7 +77,7 @@ modificatios to the data.
 currently selected database:
 ```python
 # Select your database
-sqlpy.select_db('information_schema')
+sqlpy.select_db('database_name')
 
 # Print all the tables
 for db in sqlpy.get_all_tbs():
@@ -89,7 +91,7 @@ or not:
 
 ```python
 # If table exists return True, otherwise False
-if sqlpy.tb_exists('statistics'):
+if sqlpy.tb_exists('table_name'):
     print("Table exists")
 else:
     print("Table does not exists")
@@ -101,12 +103,12 @@ Use clear_tb(table_name) to clear all the records from a table. This does not
 delete the table from the database but clear all the data from the table:
 
 ```python
-sqlpy.clear_tb('countries')
+sqlpy.clear_tb('table_name')
 ```
 ###
 #### Delete a table.
 ```python
-sqlpy.delete_tb('countries')
+sqlpy.delete_tb('table_name')
 ```
 ###
 #### Creating a table.
@@ -150,8 +152,6 @@ values = [
     ["Pasindu", 23],
     ["Tharindu", 12],
     ["Sandun", 18],
-    ["Sandun", 15],
-    ["Sandun", 25],
 ]
 for value in values:
     sqlpy.add_record('friends', value)

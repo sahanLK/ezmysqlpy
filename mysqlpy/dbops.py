@@ -308,7 +308,7 @@ class MySQLPy:
 
     def select_all(self, table: str, sort_by: dict = None, limit: int = None, offset: int = None) -> list:
         """
-        Returns all the records in the specified table.
+        Returns a list of all the records in the specified table.
         :param offset: From which position the results should be taken.
         :param limit: How many results should be returned.
         :type sort_by: A dictionary: {column_name: asc_or_desc}
@@ -321,31 +321,25 @@ class MySQLPy:
 
         # Sort the results.
         sort_query = ""
-        for key, val in sort_by.items():
-            if key and val:
-                sort_query = f"ORDER BY {key} {val}"
-            if not key and val:
-                sort_query = f"ORDER BY {key} '{val}'"
+        if sort_by:
+            for key, val in sort_by.items():
+                if key and val:
+                    sort_query = f"ORDER BY {key} {val}"
+                if not key and val:
+                    sort_query = f"ORDER BY {key} '{val}'"
 
-        # Limit the no. of results that returns.
-        limit_str = ''
-        if limit:
-            limit_str = f"LIMIT {limit}"
+        limit_str = self.__get_limit(limit) if limit else ''
+        offset_str = self.__get_offset(offset) if offset else ''
 
-        # Set offset position.
-        offset_str = ''
-        if offset:
-            offset_str = f"OFFSET {offset}"
-
-        cursor = self.db_conn.cursor()
         try:
+            cursor = self.db_conn.cursor()
             cursor.execute(f"SELECT * FROM {table} {sort_query} {limit_str} {offset_str};")
             return cursor.fetchall()
         except Exception:
             raise TableAccessError
 
-    def select_filtered(self, table: str,
-                        cols: list, conditions: str = '', limit: int = None, offset: int = None) -> list:
+    def select_filtered(self, table: str, cols: list, conditions: str = '', limit: int = None,
+                        offset: int = None) -> list:
         """
         Selects records that match the given conditions.
         :param offset: From which position the results should be taken.
@@ -376,14 +370,8 @@ class MySQLPy:
             cond_str = f"WHERE {conditions}"
 
         # Limit the no. of results that returns.
-        limit_str = ''
-        if limit:
-            limit_str = f"LIMIT {limit}"
-
-        # Set offset position.
-        offset_str = ''
-        if offset:
-            offset_str = f"OFFSET {offset}"
+        limit_str = self.__get_limit(limit) if limit else ''
+        offset_str = self.__get_offset(offset) if offset else ''
 
         try:
             cursor.execute(f"SELECT {col_str} FROM {table} {cond_str} {limit_str} {offset_str};")
@@ -404,3 +392,13 @@ class MySQLPy:
             print(f"{cursor.rowcount} Record(s) Deleted.")
         except Exception:
             raise TableAccessError(msg="Error when Deleting the record")
+
+    @staticmethod
+    def __get_limit(limit) -> str:
+        limit_str = f"LIMIT {limit}"
+        return limit_str
+
+    @staticmethod
+    def __get_offset(offset) -> str:
+        offset_str = f"OFFSET {offset}"
+        return offset_str

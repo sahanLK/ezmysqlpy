@@ -4,11 +4,11 @@ build-backend = "hatchling.build"
 
 [project]
 name = "mysqlpy"
-version = "1.1.5"
+version = "1.1.7"
 authors = [
     { name="Sahan Lakshitha", email="sahanlksk@gmail.com" },
 ]
-description = "A package that simplifies most common MYSql database operations."
+description = "A package that simplifies most common MySQL database operations."
 readme = "README.md"
 license = { text="MIT" }
 requires-python = ">=3.5"
@@ -21,5 +21,5 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/pypa/sampleproject"
-"Bug Tracker" = "https://github.com/pypa/sampleproject/issues"
+"Homepage" = "https://github.com/sahanLK/mysqlpy"
+"Bug Tracker" = "https://github.com/sahanLK/mysqlpy/issues"

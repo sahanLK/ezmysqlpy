@@ -2,7 +2,10 @@ from mysqlpy import MySQLPy
 
 
 s = MySQLPy(host='localhost', user='root', pwd='')
-s.select_db('sahan')
+s.select_db('ict_discovery')
+
+for i in (s.select_all('wp_options')):
+    print(i)
 
 # print(s.get_all_dbs())
 # s.db_exists('performanc_schema')
